@@ -1,30 +1,32 @@
 
 
+</p>
 
-## About Trukc Order
+## About Truck ordering system
 
-Laravel order application using React and inertia laravel to book shipment and register users:
+Application to order trucks using laravel react 
 
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
+
 
 ### Premium Partners
 
 - **[Vehikl](https://vehikl.com/)**
 - **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
 - **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
 - **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
+- **[Cubet Techno Labs](https://cubettech.com)**
 - **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
+- **[Many](https://www.many.co.uk)**
+- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
+- **[DevSquad](https://devsquad.com)**
+- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
 - **[OP.GG](https://op.gg)**
+- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
+- **[Lendio](https://lendio.com)**
+
 
 ## License
 
