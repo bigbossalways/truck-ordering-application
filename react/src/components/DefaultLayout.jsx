@@ -1,6 +1,6 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { NavLink, Outlet } from 'react-router-dom'
+import { Bars3Icon, BellIcon, UserIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Navigate, NavLink, Outlet } from 'react-router-dom'
 import { UseStateContext } from '../context/ContextProvider'
 
 // const user = {
@@ -25,7 +25,12 @@ function classNames(...classes) {
 
 export default function DefaultLayout() {
 
-    const { currentUser } = UseStateContext();
+    const { currentUser, userToken } = UseStateContext();
+
+    if (!userToken) {
+        return <Navigate to='login' />
+    }
+
     const logout = (ev) => {
         ev.preventDefault();
         console.log('logout action');
@@ -73,7 +78,7 @@ export default function DefaultLayout() {
                                             <MenuButton className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                                 <span className="absolute -inset-1.5" />
                                                 <span className="sr-only">Open user menu</span>
-                                                <img alt="" src={currentUser.imageUrl} className="size-8 rounded-full" />
+                                                <UserIcon className='w-8 text-white h-8 bg-black/25 p-2 rounded-full' />
                                             </MenuButton>
                                         </div>
                                         <MenuItems
@@ -127,7 +132,7 @@ export default function DefaultLayout() {
                         <div className="border-t border-gray-700 pb-3 pt-4">
                             <div className="flex items-center px-5">
                                 <div className="shrink-0">
-                                    <img alt="" src={currentUser.imageUrl} className="size-10 rounded-full" />
+                                    <UserIcon className='w-8 h-8 bg-black/25 p-2 rounded-full text-white' />
                                 </div>
                                 <div className="ml-3">
                                     <div className="text-base/5 font-medium text-white">{currentUser.name}</div>
