@@ -5,6 +5,7 @@ import Signup from "./views/Signup";
 import TruckList from "./views/TruckList";
 import GuestLayout from "./components/GuestLayout";
 import DefaultLayout from "./components/DefaultLayout";
+import TruckCreate from "./views/TruckCreate";
 
 const render = createBrowserRouter([
     {
@@ -22,6 +23,10 @@ const render = createBrowserRouter([
             {
                 path: '/truck-list',
                 element: <TruckList />
+            },
+            {
+                path: '/truck/create',
+                element: <TruckCreate />
             },
         ]
     },
