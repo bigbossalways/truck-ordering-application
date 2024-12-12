@@ -9,7 +9,7 @@ function TruckList() {
                     <h1 className="text-3xl font-bold tracking-tight text-gray-900">Truck List</h1>
                 </div>
                 <div className="mx-auto max-w-3xl px-4 py-6 sm:px-6 sm:px-8">
-                    <TButton color="green" to="/surveys/create">
+                    <TButton color="green" to="/truck/create">
                         <PlusCircleIcon className="h-6 w-6 mr-2" />
                         Create new
                     </TButton>
