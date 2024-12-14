@@ -1,4 +1,36 @@
+import { useState } from "react";
+import { Link, Links } from "react-router-dom";
+import axiosClient from "../axios";
+import { UseStateContext } from "../context/ContextProvider";
+
+
+
+
 export default function Login() {
+    const {setCurrentUser,setUserToken} = UseStateContext();
+      const [email,setEmail] = useState('');
+        const [password,setPassword] = useState('');
+        const [error,setError] = useState({__html:''});
+
+        const onSubmit = (ev) => {
+            ev.preventDefault();
+            setError({__html:''})
+            axiosClient.post('/login',{
+                email,
+                password,
+            })
+            .then(({data}) =>{
+                setCurrentUser = data.user
+                setUserToken = data.token
+            })
+            .catch(({error})=>{
+               if(error.response){
+                const finalErrors = Object.values(error.response.data.errors).reduce((accum,next) => [...accum,...next] , [])
+                setError({__html:finalErrors.join('<br>')})
+               }
+               console.error(error);
+            })
+        }
     return (
         <>
    <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -11,7 +43,11 @@ export default function Login() {
                         Sign in to your account
                     </h2>
                 </div>
-            <form action="#" method="POST" className="space-y-6">
+                {error.__html && (<div className="bg-red-500 rounded py-2 px-3 text-white" 
+                dangerouslySetInnerHTML={error}>
+
+                </div>)}
+            <form action="#" onSubmit={onSubmit} method="POST" className="space-y-6">
                 <div>
                     <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
                         Email address
@@ -19,6 +55,8 @@ export default function Login() {
                     <div className="mt-2">
                         <input
                             id="email"
+                            value={email}
+                            onChange={ev => setEmail(ev.target.value)}
                             name="email"
                             type="email"
                             required
@@ -29,19 +67,12 @@ export default function Login() {
                 </div>
 
                 <div>
-                    <div className="flex items-center justify-between">
-                        <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
-                            Password
-                        </label>
-                        <div className="text-sm">
-                            <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                                Forgot password?
-                            </a>
-                        </div>
-                    </div>
+
                     <div className="mt-2">
                         <input
                             id="password"
+                            value={password}
+                            onChange={ev => setPassword(ev.target.value)}
                             name="password"
                             type="password"
                             required
@@ -60,6 +91,12 @@ export default function Login() {
                     </button>
                 </div>
             </form>
+            <p className="mt-10 text-center text-sm/6 text-gray-500">
+                        Not a member?{' '}
+                        <Link to="/signup" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                          Signup for free
+                        </Link>
+                    </p>
         </>
     )
 }

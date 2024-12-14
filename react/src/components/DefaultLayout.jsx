@@ -33,8 +33,12 @@ export default function DefaultLayout() {
 
     const logout = (ev) => {
         ev.preventDefault();
-        console.log('logout action');
-    }
+        axiosClient.post("/logout").then((res) => {
+          setCurrentUser({});
+          setUserToken(null);
+        });
+      };
+      
     return (
         <>
 

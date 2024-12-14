@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Link, Links } from "react-router-dom";
 import axiosClient from "../axios";
+import { UseStateContext } from "../context/ContextProvider";
 
 export default function Signup() {
+    const {setCurrentUser,setUserToken} = UseStateContext();
     const [fullName,setFullName] = useState('');
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
@@ -18,7 +20,8 @@ export default function Signup() {
             password_confirmation:passwordConfirmation
         })
         .then(({data}) =>{
-            console.log(data)
+            setCurrentUser = data.user
+            setUserToken = data.token
         })
         .catch(({error})=>{
            if(error.response){
@@ -133,7 +136,7 @@ dangerouslySetInnerHTML={error}>
          
 
                     <p className="mt-10 text-center text-sm/6 text-gray-500">
-                        Not a member?{' '}
+                        already have account?{' '}
                         <Link to="/login" className="font-semibold text-indigo-600 hover:text-indigo-500">
                            Login with your account
                         </Link>
