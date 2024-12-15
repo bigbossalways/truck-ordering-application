@@ -27,7 +27,7 @@ class TruckController extends Controller
     {
         $user = $request->user();
 
-        return SurveyResource::collection(
+        return TruckResource::collection(
             Truck::where('user_id', $user->id)
                 ->orderBy('created_at', 'desc')
                 ->paginate(2)
@@ -43,12 +43,8 @@ class TruckController extends Controller
     public function store(truckStoreRequest $request)
     {
         $data = $request->validated();
-
         // Check if image was given and save on local file system
-
-
         $survey = Truck::create($data);
-
 
         return new TruckResource($survey);
     }
