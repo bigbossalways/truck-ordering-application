@@ -84,7 +84,7 @@ function TruckCreate() {
                 {/*Size*/}
                 <div className="col-span-6 sm:col-span-3">
                     <label
-                        htmlFor="location"
+                        htmlFor="size"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Shipment Size
@@ -106,7 +106,7 @@ function TruckCreate() {
                 {/*Weight*/}
                 <div className="col-span-6 sm:col-span-3">
                     <label
-                        htmlFor="location"
+                        htmlFor="weight"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Shipment Weight

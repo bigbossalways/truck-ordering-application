@@ -27,7 +27,7 @@ class TruckController extends Controller
         $user = $request->user();
 
         return SurveyResource::collection(
-            Survey::where('user_id', $user->id)
+            Truck::where('user_id', $user->id)
                 ->orderBy('created_at', 'desc')
                 ->paginate(2)
         );
@@ -215,7 +215,8 @@ class TruckController extends Controller
         $validator = Validator::make($data, [
             'question' => 'required|string',
             'type' => [
-                'required', new Enum(QuestionTypeEnum::class)
+                'required',
+                new Enum(QuestionTypeEnum::class)
             ],
             'description' => 'nullable|string',
             'data' => 'present',

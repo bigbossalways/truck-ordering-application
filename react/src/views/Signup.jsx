@@ -4,55 +4,60 @@ import axiosClient from "../axios";
 import { UseStateContext } from "../context/ContextProvider";
 
 export default function Signup() {
-    const {setCurrentUser,setUserToken} = UseStateContext();
-    const [fullName,setFullName] = useState('');
-    const [email,setEmail] = useState('');
-    const [password,setPassword] = useState('');
-    const [passwordConfirmation,sePpasswordConfirmation] = useState('');
-    const [error,setError] = useState({__html:''});
+    const { setCurrentUser, setUserToken } = UseStateContext();
+    const [fullName, setFullName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [passwordConfirmation, sePpasswordConfirmation] = useState('');
+    const [error, setError] = useState({ __html: '' });
+
     const onSubmit = (ev) => {
         ev.preventDefault();
-        setError({__html:''})
-        axiosClient.post('/signup',{
-            name:fullName,
-            email,
-            password,
-            password_confirmation:passwordConfirmation
-        })
-        .then(({data}) =>{
-            setCurrentUser = data.user
-            setUserToken = data.token
-        })
-        .catch(({error})=>{
-           if(error.response){
-            const finalErrors = Object.values(error.response.data.errors).reduce((accum,next) => [...accum,...next] , [])
-            console.log(finalErrors)
-            setError({__html:finalErrors.join('<br>')})
-           }
-           console.error(error);
-        })
-    }
+        setError({ __html: "" });
+
+
+        axiosClient
+            .post("/signup", {
+                name: fullName,
+                email,
+                password,
+                password_confirmation: passwordConfirmation,
+            })
+            .then(({ data }) => {
+                setCurrentUser(data.user)
+                setUserToken(data.token)
+            })
+            .catch((error) => {
+                if (error.response) {
+                    const finalErrors = Object.values(error.response.data.errors).reduce((accum, next) => [...accum, ...next], [])
+                    // console.log(finalErrors)
+                    setError({ __html: finalErrors.join('<br>') })
+                }
+                console.error(error)
+            });
+    };
+
     return (
         <>
-           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                    <img
-                        alt="Your Company"
-                        src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
-                        className="mx-auto h-10 w-auto"
-                    />
-                    <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-                        Sign up for free
-                    </h2>
-                </div>
-{error.__html && (<div className="bg-red-500 rounded py-2 px-3 text-white" 
-dangerouslySetInnerHTML={error}>
+            <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+                <img
+                    alt="Your Company"
+                    src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
+                    className="mx-auto h-10 w-auto"
+                />
+                <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
+                    Sign up for free
+                </h2>
+            </div>
+            {error.__html && (<div className="bg-red-500 rounded py-2 px-3 text-white"
+                dangerouslySetInnerHTML={error}>
 
-</div>)}
+            </div>)}
 
             <form action="#" onSubmit={onSubmit} method="POST" className="space-y-6">
-            <div>
+                <div>
                     <label htmlFor="full-name" className="block text-sm/6 font-medium text-gray-900">
-                    Ffull Name
+                        Ffull Name
                     </label>
                     <div className="mt-2">
                         <input
@@ -73,8 +78,8 @@ dangerouslySetInnerHTML={error}>
                     </label>
                     <div className="mt-2">
                         <input
-                          value={email}
-                          onChange={ev => setEmail(ev.target.value)}
+                            value={email}
+                            onChange={ev => setEmail(ev.target.value)}
                             id="email"
                             name="email"
                             type="email"
@@ -89,12 +94,12 @@ dangerouslySetInnerHTML={error}>
                         <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
                             Password
                         </label>
-                 
+
                     </div>
                     <div className="mt-2">
                         <input
-                          value={password}
-                          onChange={ev => setPassword(ev.target.value)}
+                            value={password}
+                            onChange={ev => setPassword(ev.target.value)}
                             id="password"
                             name="password"
                             type="password"
@@ -109,12 +114,12 @@ dangerouslySetInnerHTML={error}>
                         <label htmlFor="password-confirmation" className="block text-sm/6 font-medium text-gray-900">
                             password Confirmation
                         </label>
-                    
+
                     </div>
                     <div className="mt-2">
                         <input
-                          value={passwordConfirmation}
-                          onChange={ev => sePpasswordConfirmation(ev.target.value)}
+                            value={passwordConfirmation}
+                            onChange={ev => sePpasswordConfirmation(ev.target.value)}
                             id="password-confirmation"
                             name="password-confirmation"
                             type="password"
@@ -133,15 +138,15 @@ dangerouslySetInnerHTML={error}>
                     </button>
                 </div>
             </form>
-         
 
-                    <p className="mt-10 text-center text-sm/6 text-gray-500">
-                        already have account?{' '}
-                        <Link to="/login" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                           Login with your account
-                        </Link>
-                    </p>
-               
+
+            <p className="mt-10 text-center text-sm/6 text-gray-500">
+                already have account?{' '}
+                <Link to="/login" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                    Login with your account
+                </Link>
+            </p>
+
 
 
         </>

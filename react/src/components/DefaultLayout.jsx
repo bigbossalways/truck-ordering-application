@@ -16,7 +16,8 @@ const navigation = [
 
 ]
 const userNavigation = [
-    { name: 'Your Profile', href: '#' },
+    { name: 'Your Profile', to: '#' },
+    { name: 'Logout', to: '#' },
 ]
 
 function classNames(...classes) {
@@ -25,7 +26,7 @@ function classNames(...classes) {
 
 export default function DefaultLayout() {
 
-    const { currentUser, userToken } = UseStateContext();
+    const { currentUser, userToken, setCurrentUser, setUserToken } = UseStateContext();
 
     if (!userToken) {
         return <Navigate to='login' />
@@ -34,11 +35,11 @@ export default function DefaultLayout() {
     const logout = (ev) => {
         ev.preventDefault();
         axiosClient.post("/logout").then((res) => {
-          setCurrentUser({});
-          setUserToken(null);
+            setCurrentUser({});
+            setUserToken(null);
         });
-      };
-      
+    };
+
     return (
         <>
 
