@@ -9,6 +9,7 @@ function TruckCreate() {
         size: '',
         weight: '',
     })
+
     const submitTruck = (ev) => {
         ev.preventDefault();
     }

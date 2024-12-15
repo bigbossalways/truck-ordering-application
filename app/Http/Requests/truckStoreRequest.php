@@ -24,9 +24,9 @@ class truckStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'email'=>'required|string|email',
-            'password' => 'required',
-            'remember' => 'boolean'
+            'title' => 'required|string',
+            'location' => 'required',
+            'weight' => 'required'
         ];
     }
 }

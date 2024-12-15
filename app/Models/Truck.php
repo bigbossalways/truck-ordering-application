@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Truck extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'title',
+        'description',
+        'location',
+        'size',
+        'weight'
+    ];
 }
