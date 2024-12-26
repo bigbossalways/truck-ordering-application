@@ -1,6 +1,7 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, BellIcon, UserIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Navigate, NavLink, Outlet } from 'react-router-dom'
+import axiosClient from "../axios";
 import { UseStateContext } from '../context/ContextProvider'
 
 // const user = {
@@ -29,12 +30,12 @@ export default function DefaultLayout() {
     const { currentUser, userToken, setCurrentUser, setUserToken } = UseStateContext();
 
     if (!userToken) {
-        return <Navigate to='login' />
+        return <Navigate to='/login' />
     }
 
     const logout = (ev) => {
         ev.preventDefault();
-        axiosClient.post("/logout").then((res) => {
+        axiosClient.post("/logout").then(() => {
             setCurrentUser({});
             setUserToken(null);
         });
@@ -94,7 +95,7 @@ export default function DefaultLayout() {
                                                 <MenuItem key={item.name}>
                                                     <a
                                                         href="#"
-                                                        onClick={(ev) => logout(ev)}
+                                                        onClick={logout}
                                                         className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none"
                                                     >
                                                         {item.name}
@@ -150,7 +151,7 @@ export default function DefaultLayout() {
                                     <DisclosureButton
                                         key={item.name}
                                         as="a"
-                                        onClick={(ev) => logout(ev)}
+                                        onClick={logout}
                                         href="#"
                                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
                                     >

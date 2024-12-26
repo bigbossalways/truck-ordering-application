@@ -7,46 +7,47 @@ import { UseStateContext } from "../context/ContextProvider";
 
 
 export default function Login() {
-    const {setCurrentUser,setUserToken} = UseStateContext();
-      const [email,setEmail] = useState('');
-        const [password,setPassword] = useState('');
-        const [error,setError] = useState({__html:''});
+    const { setCurrentUser, setUserToken } = UseStateContext();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState({ __html: '' });
 
-        const onSubmit = (ev) => {
-            ev.preventDefault();
-            setError({__html:''})
-            axiosClient.post('/login',{
-                email,
-                password,
-            })
-            .then(({data}) =>{
+    const onSubmit = (ev) => {
+        ev.preventDefault();
+        setError({ __html: '' })
+        axiosClient.post('/login', {
+            email,
+            password,
+        })
+            .then(({ data }) => {
                 setCurrentUser = data.user
                 setUserToken = data.token
             })
-            .catch(({error})=>{
-               if(error.response){
-                const finalErrors = Object.values(error.response.data.errors).reduce((accum,next) => [...accum,...next] , [])
-                setError({__html:finalErrors.join('<br>')})
-               }
-               console.error(error);
+            .catch((error) => {
+
+                if (error.response) {
+                    const finalErrors = Object.values(error.response.data.error).reduce((accum, next) => [...accum, ...next], [])
+                    setError({ __html: finalErrors.join('') })
+                }
+                console.error(error);
             })
-        }
+    }
     return (
         <>
-   <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                    <img
-                        alt="Your Company"
-                        src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
-                        className="mx-auto h-10 w-auto"
-                    />
-                    <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-                        Sign in to your account
-                    </h2>
-                </div>
-                {error.__html && (<div className="bg-red-500 rounded py-2 px-3 text-white" 
+            <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+                <img
+                    alt="Your Company"
+                    src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
+                    className="mx-auto h-10 w-auto"
+                />
+                <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
+                    Sign in to your account
+                </h2>
+            </div>
+            {error.__html && (<div className="bg-red-500 rounded py-2 px-3 text-white"
                 dangerouslySetInnerHTML={error}>
 
-                </div>)}
+            </div>)}
             <form action="#" onSubmit={onSubmit} method="POST" className="space-y-6">
                 <div>
                     <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
@@ -92,11 +93,11 @@ export default function Login() {
                 </div>
             </form>
             <p className="mt-10 text-center text-sm/6 text-gray-500">
-                        Not a member?{' '}
-                        <Link to="/signup" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                          Signup for free
-                        </Link>
-                    </p>
+                Not a member?{' '}
+                <Link to="/signup" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                    Signup for free
+                </Link>
+            </p>
         </>
     )
 }
